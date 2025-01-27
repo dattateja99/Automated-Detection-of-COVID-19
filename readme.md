@@ -11,10 +11,6 @@ This project combines deep learning, React, a RESTful API, and database manageme
 - [Installation](#installation)
 - [Usage](#usage)
 - [Scripts Overview](#scripts-overview)
-- [React Frontend](#react-frontend)
-- [Contributing](#contributing)
-- [License](#license)
-
 ---
 
 ## Introduction
