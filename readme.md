@@ -1,90 +1,143 @@
-# Automated Detection of COVID-19
+# 🧠 Automated COVID-19 Detection from Chest X-Rays
 
-This project combines deep learning, React, a RESTful API, and database management to detect COVID-19 from chest X-ray images. The solution uses TensorFlow for building a convolutional neural network (CNN), a Flask API for serving predictions, a React frontend for user interaction, and a MySQL database to manage user and doctor data.
+This project integrates **Deep Learning**, **Flask**, **React**, and **MySQL** to build a full-stack system that detects COVID-19 from chest X-ray images.  
+It uses a **TensorFlow-based Convolutional Neural Network (CNN)** for image classification, a **Flask REST API** for backend services, and a **React frontend** for user interaction.  
+MySQL handles user and doctor data to maintain secure authentication and history tracking.
 
 ---
 
-## Table of Contents
-- [Introduction](#introduction)
-- [Features](#features)
+## 📑 Table of Contents
+- [Overview](#overview)
+- [Key Features](#key-features)
+- [Architecture](#architecture)
 - [Project Structure](#project-structure)
 - [Installation](#installation)
 - [Usage](#usage)
+- [API Reference](#api-reference)
 - [Scripts Overview](#scripts-overview)
----
-
-## Introduction
-
-This project is designed to assist healthcare professionals in the automated diagnosis of COVID-19 using chest X-ray images. By integrating a trained CNN with a React-based web application and backend API, the system provides a complete workflow for user management, image classification, and reporting.
+- [Future Improvements](#future-improvements)
 
 ---
 
-## Features
+## 🩺 Overview
 
-1. **Deep Learning-Based Classification**: A CNN trained to classify chest X-ray images as "COVID" or "Non-COVID."
-2. **React Frontend**: A user-friendly web interface to upload and classify images.
-3. **RESTful API**: A Flask-based API to handle user authentication, image processing, and classification.
-4. **Database Integration**: Manages user and doctor data, including registration, login, and password management.
-5. **Cross-Origin Support**: Supports web-based clients through CORS-enabled APIs.
+This end-to-end application assists healthcare professionals in diagnosing COVID-19 using chest X-rays.  
+The trained CNN model identifies infection patterns, while the integrated web stack handles image upload, prediction, and reporting through a simple browser interface.
 
 ---
 
-## Project Structure
+## ⚙️ Key Features
 
-- **Backend**:
-  - `covid_classifier.py`: Defines the CNN model for detecting COVID-19 from X-ray images.
-  - `database.py`: Handles database connections and queries for user and doctor management.
-  - `imageclassifier.py`: Loads the trained model and performs predictions on input images.
-  - `service.py`: Flask-based API that provides endpoints for image classification and user management.
-  - `sql.py`: Command-line interface for managing doctor data in the MySQL database.
-- **Frontend**:
-  - React application located in the `src/` directory for uploading and viewing classification results.
+- **Deep Learning Model**: TensorFlow CNN trained to classify X-ray images as *COVID* or *Non-COVID*.  
+- **Interactive React Frontend**: Clean UI for uploading X-rays and viewing results.  
+- **Flask RESTful API**: Serves predictions and handles user/doctor management.  
+- **MySQL Database**: Stores user credentials, medical history, and doctor details.  
+- **Cross-Origin Resource Sharing (CORS)**: Enables seamless frontend-backend communication.  
 
 ---
 
-## Installation
+## 🧩 Architecture
+
+React Frontend → Flask REST API → TensorFlow Model → MySQL Database
+
+
+1. User uploads an image via the React interface.  
+2. The Flask API preprocesses the image and runs it through the CNN model.  
+3. The model returns a prediction which is displayed in the UI.  
+4. The database logs user and doctor details securely.  
+
+---
+
+## 📁 Project Structure
+
+.
+├── backend/
+│ ├── covid_classifier.py # Defines and trains the CNN model
+│ ├── imageclassifier.py # Loads model and predicts on input images
+│ ├── database.py # Manages user/doctor DB operations
+│ ├── service.py # Flask REST API and endpoints
+│ ├── sql.py # CLI for managing doctor data
+│ └── requirements.txt # Python dependencies
+├── frontend/
+│ ├── src/ # React app source code
+│ ├── public/
+│ └── package.json
+└── README.md
+
+
+---
+
+## 🧰 Installation
 
 ### Prerequisites
-- Python 3.8+
-- Node.js and npm
-- MySQL
-- Required Python libraries (listed in `requirements.txt`)
+- Python 3.9+
+- Node.js (with npm or yarn)
+- MySQL Server
 
-### Steps
-1. **Clone the Repository**
-   ```bash
-   git clone <repository_url>
-   cd <repository_folder>
-2. **Set Up the Backend**
-    ```bash
-    python3 -m venv venv
-    source venv/bin/activate   # Linux/Mac
-    venv\Scripts\activate      # Windows
-    pip install -r requirements.txt
-3. **Set Up the Frontend**
-4. **Run the Flask API**
+### Backend Setup
+```bash
+# Clone the repository
+git clone <repository_url>
+cd <repository_folder>/backend
 
-## Usage
-### Train the Model
-Customize paths for the dataset in covid_classifier.py.
-Train the model
-### Start the React Frontend
-Access the web application at http://localhost:3000.
-### API Endpoints
-/detect (POST): Upload an X-ray image to classify it as "COVID" or "Non-COVID."
-/adddoctor (POST): Register a new doctor.
-/logindoctor (POST): Authenticate a doctor.
+# Create and activate a virtual environment
+python3 -m venv venv
+source venv/bin/activate      # macOS/Linux
+venv\Scripts\activate         # Windows
 
+# Install dependencies
+pip install -r requirements.txt
 
-## Scripts Overview
-### Backend Scripts
-covid_classifier.py: Builds and trains a CNN using TensorFlow.
-database.py: Handles database operations like doctor registration and login.
-imageclassifier.py: Performs image classification using the trained model.
-service.py: Implements RESTful endpoints using Flask.
-sql.py: A command-line interface for managing doctor data.
-### React Frontend
-The React application provides a user-friendly interface for:
-Uploading chest X-ray images for classification.
-Viewing classification results in real-time.
-Managing user authentication and doctor registration.
+# Run the Flask API
+python service.py
+
+cd ../frontend
+npm install
+npm start
+🚀 Usage
+1. Train the Model
+
+Edit dataset paths in covid_classifier.py and run:
+
+python covid_classifier.py
+
+2. Start Services
+
+Flask API → python service.py
+
+React App → npm start
+
+3. Access the App
+
+Open http://localhost:3000
+ in your browser, upload an image, and get instant classification results.
+
+🔌 API Reference
+Endpoint	Method	Description
+/detect	POST	Upload an image and get classification (“COVID” / “Non-COVID”)
+/adddoctor	POST	Register a new doctor
+/logindoctor	POST	Authenticate doctor credentials
+🧠 Scripts Overview
+Backend
+
+covid_classifier.py – Builds and trains the CNN using TensorFlow
+
+imageclassifier.py – Loads model and performs image classification
+
+database.py – Handles CRUD operations for user/doctor data
+
+service.py – Implements RESTful endpoints using Flask
+
+sql.py – Command-line utility for managing doctor records
+
+Frontend
+
+React interface for uploading images, viewing results, and managing authentication
+
+🔮 Future Improvements
+
+Add Grad-CAM heatmaps to visualize infected lung regions
+
+Integrate Docker for containerized deployment
+
+Expand model to support multi-class pneumonia classification
